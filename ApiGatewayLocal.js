@@ -21,7 +21,7 @@ api.then((d)=>{
     d.traits().forEach((trait)=>{
         var f = function(req, res){
 
-            var context = {"res":res, "done": function(data){
+            var context = {"res":res, "done": function(err, data){
                 console.log("ENDEND", data);
                 res.status(200).send(data);
             }}
