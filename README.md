@@ -2,7 +2,7 @@
 AWS ApiGateway Simulator for local tests using RAML to configure
 
 
-`
+```yaml
 #%RAML 1.0
 title: Test report data
 mediaType: application/json
@@ -16,5 +16,5 @@ traits:
         is: [../mailcore-node/Server#mailserverHandler]
 /mailsender:
     post:
-        is: [../mailsender-node/Server#mailserverHandler]
-`
+        is: [../mailsender-node/Server#mailserverHandler]
+```
