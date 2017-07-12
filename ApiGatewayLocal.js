@@ -6,7 +6,13 @@ const app = new Express();
 
 app.use(BodyParser.json());
 
-var api = RamlParser.loadApi("run.raml");
+const port = process.env.port || 2020;
+
+const raml_file = RamlParser.loadApi("run.raml");
+
+const traits = [];
+const methods = [];
+
 
 app.options((request, response)=>{
     response.header("Access-Control-Allow-Origin", "*");
@@ -15,36 +21,58 @@ app.options((request, response)=>{
 })
 
 
-const traits = [];
-const methods = [];
-api.then((d)=>{
-    d.traits().forEach((trait)=>{
-        var f = function(req, res){
+const watchingFile = function(arr_trait){
+    try{
+        arr_trait
 
-            var context = {"res":res, "done": function(err, data){
-                console.log("ENDEND", data);
-                res.status(200).send(data);
-            }}
-            var t = trait.name().split("#");
-            const reqFile = require(t[0]+".js");
-            reqFile[t[1]](req['body'], context);
+        fs.watch((arr_trait+".js"), function (event, filename) {
+            var file = files[filename];
+            delete require.cache[require.resolve(file)]
+            console.log('File:' + filename + " refreshed!");
+        });
+    }catch(e){console.log(e);}
+};
+
+const processTraits = function(raml){
+    raml.traits().forEach((trait)=>{
+        var f = function(req, res){
+            const context = {"res":res, "done": function(err, data){
+                if(err){
+                    console.log("\x1b[31m","Data:",err);
+                    res.status(500).send(err);
+                }else{
+                    console.log("\x1b[32m","Data:",data);
+                    res.status(200).send(data);
+                }
+
+            }};
+            const arr_trait = trait.name().split("#");
+            watchingFile(arr_trait[0]);
+            const req_file = require(arr_trait[0]+".js");
+            req_file[arr_trait[1]](req['body'], context);
         }
         traits[trait.name()] = f;
     });
-    console.log(traits);
 
-    d.resources().forEach((resource)=>{
-        console.log(resource.displayName());
+}
+
+raml_file.then((raml)=>{
+    processTraits(raml);
+
+    raml.resources().forEach((resource)=>{
         resource.methods().forEach((method)=>{
             console.log(method.method());
             console.log(method.is()[0].name());
             var func = traits[method.is()[0].name()];
             app[method.method()](resource.displayName(), func);
-            console.log("\x1b[31m","Method:",method.method(),"resource:",resource.displayName());
+            console.log("\x1b[33m","[Resource] Method:",method.method(),"resource:",resource.displayName());
         });
     });
+    console.log("\x1b[0m","");
 });
 
-console.log("\x1b[32m", "Started 2020");
 
-app.listen(2020);
+
+console.log("\x1b[32m", "Initialized at Port: "+port);
+
+app.listen(port);
