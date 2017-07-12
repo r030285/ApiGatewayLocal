@@ -20,19 +20,6 @@ app.options((request, response)=>{
     response.status(200).send();
 })
 
-
-const watchingFile = function(arr_trait){
-    try{
-        arr_trait
-
-        fs.watch((arr_trait+".js"), function (event, filename) {
-            var file = files[filename];
-            delete require.cache[require.resolve(file)]
-            console.log('File:' + filename + " refreshed!");
-        });
-    }catch(e){console.log(e);}
-};
-
 const processTraits = function(raml){
     raml.traits().forEach((trait)=>{
         var f = function(req, res){
@@ -47,7 +34,6 @@ const processTraits = function(raml){
 
             }};
             const arr_trait = trait.name().split("#");
-            watchingFile(arr_trait[0]);
             const req_file = require(arr_trait[0]+".js");
             req_file[arr_trait[1]](req['body'], context);
         }
@@ -70,8 +56,6 @@ raml_file.then((raml)=>{
     });
     console.log("\x1b[0m","");
 });
-
-
 
 console.log("\x1b[32m", "Initialized at Port: "+port);
 
