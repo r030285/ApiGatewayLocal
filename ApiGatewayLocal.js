@@ -6,21 +6,44 @@ const app = new Express();
 
 app.use(BodyParser.json());
 
-const port = process.env.port || 2020;
+var args = process.argv.slice(2);
 
-const raml_file = RamlParser.loadApi("run.raml");
+let port = 2020;
+let raml_file = null;
+
+const getDataArgv = function(data){
+    const arg = data.split("=");
+    if(arg.length>1){
+        return arg[1];
+    }else{
+        return null;
+    }
+}
+console.log(process.argv);
+process.argv.forEach((data)=>{
+
+    if(data.indexOf("--file")>-1){
+        var file = getDataArgv(data);
+        raml_file = RamlParser.loadApi((file?file:"run.raml"));
+    }
+    if(data.indexOf("--port")>-1){
+        port = getDataArgv(data);
+        port = port?port:2020;
+    }
+});
 
 const traits = [];
 const methods = [];
 
+// TODO: watching Files
 const watchingFile = function(arr_trait){
     try{
         fs.watch((arr_trait+".js"), function (event, filename) {
             var file = files[filename];
-            delete require.cache[require.resolve(file)]
-            console.log('File:' + filename + " refreshed!");
+            delete require.cache[require.resolve(file)]; // TODO: clean cache
+            console.log("\x1b[33m",'File:' + filename + " refreshed!");
         });
-    }catch(e){console.log(e);}
+    }catch(e){console.log("\x1b[31m",e.message);}
 };
 
 app.options((request, response)=>{
@@ -56,8 +79,6 @@ raml_file.then((raml)=>{
 
     raml.resources().forEach((resource)=>{
         resource.methods().forEach((method)=>{
-            console.log(method.method());
-            console.log(method.is()[0].name());
             var func = traits[method.is()[0].name()];
             app[method.method()](resource.displayName(), func);
             console.log("\x1b[33m","[Resource] Method:",method.method(),"resource:",resource.displayName());

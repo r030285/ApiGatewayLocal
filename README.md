@@ -18,3 +18,12 @@ traits:
     post:
         is: [../mailsender-node/Server#mailserverHandler]
 ```
+```bash
+node ApiGatewayLocal.js
+```
+- Port default: 2020
+- File path default: run.raml
+
+```bash
+node ApiGatewayLocal.js --file=./test/run.raml --port=3030
+```
