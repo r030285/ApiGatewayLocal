@@ -13,6 +13,15 @@ const raml_file = RamlParser.loadApi("run.raml");
 const traits = [];
 const methods = [];
 
+const watchingFile = function(arr_trait){
+    try{
+        fs.watch((arr_trait+".js"), function (event, filename) {
+            var file = files[filename];
+            delete require.cache[require.resolve(file)]
+            console.log('File:' + filename + " refreshed!");
+        });
+    }catch(e){console.log(e);}
+};
 
 app.options((request, response)=>{
     response.header("Access-Control-Allow-Origin", "*");
