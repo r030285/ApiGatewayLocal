@@ -8,15 +8,11 @@ title: Test report data
 mediaType: application/json
 
 traits:
-    ../mailcore-node/Server#mailserverHandler:
-    ../mailsender-node/Server#mailserverHandler:
+    ./test/LambdaTest#main:
 
-/mailcore:
-    post:
-        is: [../mailcore-node/Server#mailserverHandler]
-/mailsender:
-    post:
-        is: [../mailsender-node/Server#mailserverHandler]
+/test:
+    get:
+        is: [./test/LambdaTest#main]
 ```
 ```bash
 node ApiGatewayLocal.js
