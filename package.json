@@ -1,5 +1,5 @@
 {
-  "name": "api-gateway-local",
+  "name": "apigatewaylocal",
   "version": "0.0.1",
   "description": "AWS API Gateway for local tests",
   "main": "ApiGatewayLocal.js",
@@ -16,6 +16,11 @@
     "AWS",
     "RAML"
   ],
+  "bin": {
+      "apigatewaylocal": "bin/index.js"
+    },
+  "main" : "./lib/ApiGatewayLocal.js",
+  "preferGlobal": "true",
   "author": "Ricardo Roque",
   "license": "ISC",
   "bugs": {
@@ -23,8 +28,8 @@
   },
   "homepage": "https://github.com/r030285/ApiGatewayLocal#readme",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "raml-1-parser": "^1.1.26"
+    "body-parser": "1.17.2",
+    "express": "4.15.3",
+    "raml-1-parser": "1.1.26"
   }
 }
