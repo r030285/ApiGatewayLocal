@@ -1,8 +1,10 @@
 {
   "name": "apigatewaylocal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "AWS API Gateway for local tests",
   "main": "ApiGatewayLocal.js",
+  "author": "Ricardo Roque",
+  "license": "ISC",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,18 +13,17 @@
     "url": "git+https://github.com/r030285/ApiGatewayLocal.git"
   },
   "keywords": [
-    "API",
-    "Gateway",
-    "AWS",
-    "RAML"
+    "api",
+    "gateway",
+    "aws",
+    "raml",
+    "local",
   ],
   "bin": {
       "apigatewaylocal": "bin/index.js"
     },
   "main" : "./lib/ApiGatewayLocal.js",
   "preferGlobal": "true",
-  "author": "Ricardo Roque",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/r030285/ApiGatewayLocal/issues"
   },
