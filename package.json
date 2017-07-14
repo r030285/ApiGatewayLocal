@@ -17,7 +17,7 @@
     "gateway",
     "aws",
     "raml",
-    "local",
+    "local"
   ],
   "bin": {
       "apigatewaylocal": "bin/index.js"
