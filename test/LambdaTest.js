@@ -2,5 +2,6 @@
 
 
 module.exports.main = (event, context) => {
-    context.done({"teste":"OK"});
+    console.log(event);
+    context.done(null, {"teste":"OK"});
 }

@@ -1,8 +1,8 @@
 {
   "name": "apigatewaylocal",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "AWS API Gateway for local tests",
-  "main": "ApiGatewayLocal.js",
+  "main": "./bin/index.js",
   "author": "Ricardo Roque",
   "license": "ISC",
   "scripts": {
@@ -20,9 +20,8 @@
     "local"
   ],
   "bin": {
-      "apigatewaylocal": "bin/index.js"
-    },
-  "main" : "./lib/ApiGatewayLocal.js",
+    "apigatewaylocal": "bin/index.js"
+  },
   "preferGlobal": "true",
   "bugs": {
     "url": "https://github.com/r030285/ApiGatewayLocal/issues"
@@ -31,6 +30,7 @@
   "dependencies": {
     "body-parser": "1.17.2",
     "express": "4.15.3",
-    "raml-1-parser": "1.1.26"
+    "raml-1-parser": "1.1.26",
+    "yamljs": "0.3.0"
   }
 }

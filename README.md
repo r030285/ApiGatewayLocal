@@ -1,5 +1,27 @@
 # ApiGatewayLocal
-AWS ApiGateway Simulator for local tests using RAML to configure
+AWS ApiGateway Simulator for local tests using YAML or RAML to configure
+
+### 0.1.0
+Accept a simple YAML file to create a configuration file.
+BUG FIX:
+    - receive query string params;
+
+run.yml model:
+
+```yaml
+title: Test report data
+mediaType: application/json
+
+actions:
+    /test:
+        file: /LambdaTest.js
+        handler: main
+        method: get
+    /test2:
+        file: /LambdaTest.js
+        handler: main
+        method: get
+```
 
 run.raml model:
 
@@ -24,7 +46,7 @@ node ./lin/ApiGatewayLocal.js
 - File path default: ./run.raml
 
 ```bash
-node ./lin/ApiGatewayLocal.js --file=./test/run.raml --port=3030
+node ./lin/ApiGatewayLocal.js --file ./test/run.yml --port 3030
 ```
 
 If you install global with:
@@ -32,7 +54,7 @@ If you install global with:
 npm -g install apigatewaylocal
 ```
 ```bash
-apigatewaylocal --file=./test/run.raml --port=3030
+apigatewaylocal --file ./test/run.yml --port 3030
 ```
 
 if necessary create a symbolic link.
