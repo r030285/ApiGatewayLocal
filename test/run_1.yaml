@@ -1,0 +1,12 @@
+title: Test report data
+mediaType: application/json
+
+actions:
+    /test:
+        file: /LambdaTest.js
+        handler: main
+        method: get
+    /test2:
+        file: /LambdaTest.js
+        handler: main
+        method: get
