@@ -3,9 +3,12 @@ mediaType: application/json
 
 actions:
     /test:
-        file: /LambdaTest.js
-        handler: main
-        method: get
+        get: 
+            file: /LambdaTest.js
+            handler: main
+        post: 
+            file: /LambdaTest.js
+            handler: main
     /test2:
         file: /LambdaTest.js
         handler: main

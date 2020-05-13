@@ -1,7 +1,7 @@
 {
   "name": "apigatewaylocal",
-  "version": "0.1.0",
-  "description": "AWS API Gateway for local tests",
+  "version": "0.2.0",
+  "description": "AWS API Gateway for AWS Lambda local tests",
   "main": "./bin/index.js",
   "author": "Ricardo Roque",
   "license": "ISC",
