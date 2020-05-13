@@ -22,7 +22,7 @@
   "bin": {
     "apigatewaylocal": "bin/index.js"
   },
-  "preferGlobal": "true",
+  "preferGlobal": true,
   "bugs": {
     "url": "https://github.com/r030285/ApiGatewayLocal/issues"
   },
