@@ -31,7 +31,7 @@
     "body-parser": "1.17.2",
     "cors": "^2.8.5",
     "express": "4.15.3",
-    "raml-1-parser": "1.1.26",
+    "raml-1-parser": "1.1.67",
     "yamljs": "0.3.0"
   }
 }
